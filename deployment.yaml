@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "flask-app"
+  namespace: "default"
+  labels:
+    app: "flask-app"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "flask-app"
+  template:
+    metadata:
+      labels:
+        app: "flask-app"
+    spec:
+      containers:
+      - name: "flask-app-image"
+        image: "flask-image:latest"
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 4545
+          name: "flask-app"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "flask-app"
+  labels:
+    app: "flask-app"
+spec:
+  ports:
+    - port: 4545
+      targetPort: 4545
+  selector:
+    app: "flask-app"
+    tier: "flask-app"
+  type: "LoadBalancer"
+
