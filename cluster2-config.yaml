@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: ns-1
   annotations:
-    configmanagement.gke.io/cluster-selector: '{"matchLabels": {"cluster-name": "config-cluster-2"}}'
+    configsync.gke.io/cluster-name-selector: config-cluster-2
